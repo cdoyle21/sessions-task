@@ -27,7 +27,7 @@ export type GetProductsResponse = {
  */
 
 export const getProducts = async (
-  productsServiceURL: string,
+  productsServiceURL?: string,
   limit?: number,
   sort?: SortOrder,
 ): Promise<GetProductsResponse[] | []> => {
