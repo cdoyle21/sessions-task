@@ -1,9 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import { GridContainer, Item } from './Products.styles';
-import { GetProductsResponse, getProducts } from '../../services/fakeStore';
+import { ProductItem as ProdItem, getProducts } from '../../../services/fakeStore';
+import ProductItem from '../../../components/molecules/ProductItem';
 
 const Products: FC = () => {
-  const [products, setProducts] = useState<GetProductsResponse[]>();
+  const [products, setProducts] = useState<ProdItem[]>();
   const { REACT_APP_PRODUCTS_SERVICE_LOCATION } = process.env;
 
   const getProductItems = async () => {
@@ -19,9 +20,9 @@ const Products: FC = () => {
 
   return (
     <GridContainer data-testid="ProductsGrid">
-      {products?.map((product: GetProductsResponse) => (
+      {products?.map((product: ProdItem) => (
         <Item key={product.id} data-testid="ProductsGridItem">
-          {product.id}
+          <ProductItem product={product} />
         </Item>
       ))}
     </GridContainer>

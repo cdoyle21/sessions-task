@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import Products from './Products';
+import Products from '.';
 
 const renderComponent = () => {
   return render(<Products />);

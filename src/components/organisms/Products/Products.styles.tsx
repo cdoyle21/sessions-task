@@ -22,6 +22,7 @@ export const GridContainer = styled.div<GridContainerProps>`
 `;
 
 export const Item = styled.div`
+  padding-right: 40px;
   grid-column: span 3;
 
   @media only screen and (min-width: 768px) {

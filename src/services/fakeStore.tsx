@@ -5,7 +5,7 @@ export enum SortOrder {
   DESC = 'desc',
 }
 
-export type GetProductsResponse = {
+export type ProductItem = {
   id: number;
   title: string;
   price: number;
@@ -30,9 +30,9 @@ export const getProducts = async (
   productsServiceURL?: string,
   limit?: number,
   sort?: SortOrder,
-): Promise<GetProductsResponse[] | []> => {
+): Promise<ProductItem[] | []> => {
   try {
-    const { data: response }: AxiosResponse<GetProductsResponse[]> = await axios.get(
+    const { data: response }: AxiosResponse<ProductItem[]> = await axios.get(
       `${productsServiceURL}/products`,
       {
         params: {
@@ -76,9 +76,9 @@ export const getCategories = async (productsServiceURL: string): Promise<Array<s
 export const getCategoryProducts = async (
   productsServiceURL: string,
   categoryName: string,
-): Promise<GetProductsResponse[] | []> => {
+): Promise<ProductItem[] | []> => {
   try {
-    const { data: response }: AxiosResponse<GetProductsResponse[]> = await axios.get(
+    const { data: response }: AxiosResponse<ProductItem[]> = await axios.get(
       `${productsServiceURL}/products/categories/${categoryName}`,
     );
 
