@@ -65,15 +65,31 @@ describe('fakeStore', () => {
       };
 
       axios.get.mockResolvedValue(mockedData);
-      await expect(getCategoryProducts(mockUrl, "men's clothing")).resolves.toEqual(
+      await expect(getCategoryProducts("men's clothing", mockUrl)).resolves.toEqual(
         mockedData.data,
       );
+    });
+
+    it('should return the correct response with a limit and sort params', async () => {
+      const limit = 5;
+      const sort = SortOrder.DESC;
+      const mockedData = {
+        data: mockedProductsData,
+      };
+
+      axios.get.mockResolvedValue(mockedData);
+      const result = await getCategoryProducts("men's clothing", mockUrl, limit, sort);
+
+      expect(result).toEqual(mockedData.data);
+      expect(axios.get).toHaveBeenCalledWith(`${mockUrl}/products/category/men's clothing`, {
+        params: { limit, sort },
+      });
     });
 
     it('should throw error if request fails', async () => {
       const errorMessage = 'Failed to fetch products';
       axios.get.mockRejectedValue(new Error(errorMessage));
-      await expect(getCategoryProducts(mockUrl, "men's clothing")).rejects.toThrow(errorMessage);
+      await expect(getCategoryProducts("men's clothing", mockUrl)).rejects.toThrow(errorMessage);
     });
   });
 });

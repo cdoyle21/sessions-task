@@ -26,17 +26,17 @@ export const Title = styled.span`
   min-height: 75px;
 `;
 
+export const DescriptionWrapper = styled.div<{ open: boolean }>`
+  height: ${({ open }) => (open ? '' : '80px')};
+`;
+
 export const ProductDetailWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 `;
 
 export const ProductDetail = styled.div`
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 3;
+  padding-bottom: 5px;
 `;
 
 export const ProductName = styled.div`

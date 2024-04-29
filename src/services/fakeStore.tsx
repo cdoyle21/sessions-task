@@ -20,9 +20,9 @@ export type ProductItem = {
 
 /**
  * Return the products and use params for sorting and filtering
- * @param productsServiceURL
- * @param limit
- * @param sort
+ * @param productsServiceURL The URL of the service.
+ * @param limit Limit results returned
+ * @param sort Sort by asc or desc
  * @returns An array of product items
  */
 
@@ -30,7 +30,7 @@ export const getProducts = async (
   productsServiceURL?: string,
   limit?: number,
   sort?: SortOrder,
-): Promise<ProductItem[] | []> => {
+): Promise<ProductItem[]> => {
   try {
     const { data: response }: AxiosResponse<ProductItem[]> = await axios.get(
       `${productsServiceURL}/products`,
@@ -50,11 +50,11 @@ export const getProducts = async (
 
 /**
  * Return the categories
- * @param productsServiceURL
+ * @param productsServiceURL The URL of the service.
  * @returns An array of category items
  */
 
-export const getCategories = async (productsServiceURL: string): Promise<Array<string>> => {
+export const getCategories = async (productsServiceURL?: string): Promise<Array<string>> => {
   try {
     const { data: response }: AxiosResponse<Array<string>> = await axios.get(
       `${productsServiceURL}/products/categories`,
@@ -68,18 +68,28 @@ export const getCategories = async (productsServiceURL: string): Promise<Array<s
 
 /**
  * Return the products in a specific category
- * @param productsServiceURL
- * @param categoryName
+ * @param categoryName Category items to be returned
+ * @param productsServiceURL The URL of the service.
+ * @param limit Limit results returned
+ * @param sort Sort by asc or desc
  * @returns An array of category items
  */
 
 export const getCategoryProducts = async (
-  productsServiceURL: string,
   categoryName: string,
-): Promise<ProductItem[] | []> => {
+  productsServiceURL?: string,
+  limit?: number,
+  sort?: SortOrder,
+): Promise<ProductItem[]> => {
   try {
     const { data: response }: AxiosResponse<ProductItem[]> = await axios.get(
-      `${productsServiceURL}/products/categories/${categoryName}`,
+      `${productsServiceURL}/products/category/${categoryName}`,
+      {
+        params: {
+          limit: limit || '',
+          sort: sort || '',
+        },
+      },
     );
 
     return response;

@@ -26,3 +26,5 @@ export const mockedProductsData = [
     },
   },
 ];
+
+export const mockedCategoryDate = ['electronics', 'jewelery', "men's clothing", "women's clothing"];
