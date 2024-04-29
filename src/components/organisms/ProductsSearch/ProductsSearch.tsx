@@ -17,10 +17,14 @@ export interface Props {
 const ProductsSearch: FC<Props> = ({ products, setFilteredData, serviceUrl, setFilterName }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Handler function to update the search term state when input value changes
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
+  // Handler function to handle form submission
+  // If search term is empty, call function to clear sorting and filters
+  // If search term is not empty, filter products based on the search term
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!searchTerm) {
