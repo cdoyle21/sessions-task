@@ -5,6 +5,7 @@ import {
 } from './productSortingAndFiltering';
 import { ItemProps } from '../components/molecules/DropdownButton/DropdownButton';
 import { getCategoryProducts, getProducts } from '../services/fakeStore';
+import { mockedProductsData } from '../testUtils/mockedProductsData';
 
 jest.mock('../services/fakeStore', () => ({
   getCategoryProducts: jest.fn(),
@@ -33,8 +34,17 @@ describe('handleFilterChange', () => {
       },
     ];
     const serviceUrl = 'mock-service-url';
+    const filterName = 'product1';
 
-    await handleFilterChange(item, filterByItems, serviceUrl, setFilterName, setFilteredData);
+    await handleFilterChange(
+      item,
+      filterByItems,
+      serviceUrl,
+      setFilterName,
+      setFilteredData,
+      filterName,
+      mockedProductsData,
+    );
 
     expect(setFilterName).toHaveBeenCalledWith(item.name);
     expect(setFilteredData).toHaveBeenCalled();

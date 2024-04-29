@@ -16,11 +16,17 @@ export const handleFilterChange = async (
   serviceUrl: string | undefined,
   setFilterName: Dispatch<SetStateAction<string | undefined>>,
   setFilteredData: Dispatch<SetStateAction<ProductItem[]>>,
+  filterName: string | undefined,
+  products: ProductItem[],
 ) => {
   if (item !== filterByItems[0]) {
-    const filteredResults = await getCategoryProducts(item.name, serviceUrl);
-    setFilterName(item.name);
-    setFilteredData(filteredResults);
+    if (filterName === item.name) {
+      setFilteredData(products);
+    } else {
+      const filteredResults = await getCategoryProducts(item.name, serviceUrl);
+      setFilterName(item.name);
+      setFilteredData(filteredResults);
+    }
   }
 };
 

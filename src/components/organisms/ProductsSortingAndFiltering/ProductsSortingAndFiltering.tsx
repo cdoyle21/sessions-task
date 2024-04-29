@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import { Container, Button } from './ProductsSortingAndFiltering.styles';
 import DropdownButton, { ItemProps } from '../../molecules/DropdownButton/DropdownButton';
 import { ProductItem } from '../../../services/fakeStore';
@@ -9,17 +9,28 @@ import {
 } from '../../../utils/productSortingAndFiltering';
 
 export interface Props {
+  /** Array of product items */
+  products: ProductItem[];
   /** Array of categories */
   categories: Array<string>;
   /** Set filtered data state callback */
   setFilteredData: Dispatch<SetStateAction<ProductItem[]>>;
   /** Fake store API URL */
-  serviceUrl: string | undefined;
+  serviceUrl?: string;
+  /** The current filter name */
+  filterName?: string;
+  /** Setter function for the filter name state */
+  setFilterName: Dispatch<SetStateAction<string | undefined>>;
 }
 
-const ProductsSortingAndFiltering: FC<Props> = ({ categories, setFilteredData, serviceUrl }) => {
-  const [filterName, setFilterName] = useState<string>();
-
+const ProductsSortingAndFiltering: FC<Props> = ({
+  products,
+  categories,
+  setFilteredData,
+  serviceUrl,
+  filterName,
+  setFilterName,
+}) => {
   // Dropdown items for filter by title and categories
   const filterTitle: ItemProps[] = [
     {
@@ -67,7 +78,15 @@ const ProductsSortingAndFiltering: FC<Props> = ({ categories, setFilteredData, s
         initialSelection={filterByItems[0]}
         menuAlignment="left"
         onSelectionChange={(item) => {
-          handleFilterChange(item, filterByItems, serviceUrl, setFilterName, setFilteredData);
+          handleFilterChange(
+            item,
+            filterByItems,
+            serviceUrl,
+            setFilterName,
+            setFilteredData,
+            filterName,
+            products,
+          );
         }}
       />
       {/* Dropdown button for sorting */}

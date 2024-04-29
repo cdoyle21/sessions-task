@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import App from './App';
 import React from 'react';
 import { getCategories, getProducts } from './services/fakeStore';

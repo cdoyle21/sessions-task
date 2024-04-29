@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ProductsSortingAndFiltering, { Props } from './ProductsSortingAndFiltering';
-import { mockedCategoryDate } from '../../../testUtils/mockedProductsData';
+import { mockedCategoryDate, mockedProductsData } from '../../../testUtils/mockedProductsData';
 import {
   handleFilterChange,
   handleSortChange,
@@ -74,9 +74,12 @@ describe('ProductsSortingAndFiltering', () => {
   const mockSetFilteredData = jest.fn();
 
   const defaultProps: Props = {
+    products: mockedProductsData,
     categories: mockedCategoryDate,
     setFilteredData: mockSetFilteredData,
     serviceUrl: 'www.example.com',
+    filterName: '',
+    setFilterName: mockSetFilteredName,
   };
 
   afterEach(() => {
@@ -101,6 +104,8 @@ describe('ProductsSortingAndFiltering', () => {
       defaultProps.serviceUrl,
       expect.any(Function),
       mockSetFilteredData,
+      '',
+      mockedProductsData,
     );
   });
 
@@ -112,7 +117,7 @@ describe('ProductsSortingAndFiltering', () => {
     expect(handleSortChange).toHaveBeenCalledWith(
       { name: 'desc', label: 'Descending', ariaLabel: 'Descending' },
       mockSortByItems,
-      undefined,
+      '',
       defaultProps.serviceUrl,
       mockSetFilteredData,
     );
